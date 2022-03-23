@@ -12,7 +12,7 @@ function App() {
   const joinRoom = ()=>{
     if(userName && room)
     {
-      console.log(userName, room);
+      socket.emit("join_room", room);
     }
   }
 
