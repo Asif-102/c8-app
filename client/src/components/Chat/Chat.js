@@ -13,6 +13,8 @@ const Chat = ({ socket, userName, room }) => {
                 message: typedMessage,
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
             }
+
+            await socket.emit("send_message", messageData);
         }
     }
 
@@ -28,7 +30,7 @@ const Chat = ({ socket, userName, room }) => {
                 placeholder="Hey....." 
                 onChange={(event)=> setTypedMessage(event.target.value)}
                 />
-                <button>&#9658;</button>
+                <button onClick={sendMessage}>&#9658;</button>
             </div>
         </div>
     )
