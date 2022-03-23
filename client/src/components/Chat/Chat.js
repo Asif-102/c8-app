@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import "./Chat.css";
 
 const Chat = ({ socket, userName, room }) => {
 
@@ -35,7 +36,10 @@ const Chat = ({ socket, userName, room }) => {
             </div>
             <div className='chat-body'>
                 {
-                    messageList.map((messageData, index) => <h1 key={index}>{messageData.message}</h1>)
+                    messageList.map((messageData, index) => (<div key={index} className={(userName === messageData.author)?"you":"other"}>
+                            <h5>{messageData.message}</h5>
+                            <p>{messageData.author} <small>{messageData.time}</small></p>
+                    </div>))
                 }
             </div>
             <div className='chat-footer'>

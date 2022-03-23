@@ -14,32 +14,44 @@ function App() {
   const joinRoom = () => {
     if (userName && room) {
       socket.emit("join_room", room);
-      
+
       setShowChat(true);
     }
   }
 
   return (
-    <div className="App">
+    <div>
 
       {
         !showChat ?
-          <div>
-            <h3>Join a Chat Room</h3>
+          <div className="container d-grid gap-2 mt-5 p-5 border">
+            <h3 className="text-primary text-center">Join a Chat Room</h3>
 
-            <input
-              type="text"
-              placeholder="John..."
-              onChange={(event) => setUserName(event.target.value)}
-            />
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="inputGroup-sizing-default">User Name</span>
+              </div>
+              <input
+                type="text"
+                className="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default"
+                onChange={(event) => setUserName(event.target.value)}
+              />
+            </div>
 
-            <input
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="inputGroup-sizing-default">Room Id</span>
+              </div>
+              <input
               type="text"
-              placeholder="Room ID..."
+              className="form-control" aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
               onChange={(event) => setRoom(event.target.value)}
             />
+            </div>
 
-            <button onClick={joinRoom}>Join A Room</button>
+            <button onClick={joinRoom} className="btn btn-primary">Join A Room</button>
           </div> :
           <Chat socket={socket} userName={userName} room={room} />
       }
