@@ -51,7 +51,7 @@ function App() {
             />
             </div>
 
-            <button onClick={joinRoom} className="btn btn-primary">Join A Room</button>
+            <button onClick={joinRoom} className="btn btn-primary">Join A Room <i className="fa fa-arrow-circle-up"></i></button>
           </div> :
           <Chat socket={socket} userName={userName} room={room} />
       }

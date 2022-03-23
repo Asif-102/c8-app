@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import "./Chat.css";
 
 const Chat = ({ socket, userName, room }) => {
 
@@ -30,26 +29,31 @@ const Chat = ({ socket, userName, room }) => {
     }, [socket]);
 
     return (
-        <div>
-            <div className='chat-header'>
-                <p>Let's Chat</p>
+        <div className='container'>
+            <div>
+                <h2 className="text-primary text-center">Let's Chat</h2>
             </div>
-            <div className='chat-body'>
+            <div className='w-50 mx-auto shadow rounded p-3'>
                 {
-                    messageList.map((messageData, index) => (<div key={index} className={(userName === messageData.author)?"you":"other"}>
-                            <h5>{messageData.message}</h5>
-                            <p>{messageData.author} <small>{messageData.time}</small></p>
+                    messageList.map((messageData, index) => (<div key={index} className={(userName === messageData.author) ? "d-flex justify-content-end" : "d-flex justify-content-start"}>
+                        <div className={(userName === messageData.author) ? "bg-light p-4 my-2 rounded-pill" : "bg-info p-4 my-2 rounded-pill text-white"}>
+                            <h5 className='m-0'>{messageData.message}</h5>
+                            <p className='m-0'>{messageData.author} <small>{messageData.time}</small></p>
+                        </div>
                     </div>))
                 }
-            </div>
-            <div className='chat-footer'>
-                <input
-                    value={typedMessage}
-                    type="text"
-                    placeholder="Hey....."
-                    onChange={(event) => setTypedMessage(event.target.value)}
-                />
-                <button onClick={sendMessage}>&#9658;</button>
+                <div className='row'>
+                    <div className='w-100 d-flex'>
+                        <input
+                            className='form-control'
+                            value={typedMessage}
+                            type="text"
+                            placeholder="Type message....."
+                            onChange={(event) => setTypedMessage(event.target.value)}
+                        />
+                        <button className='btn btn-primary' onClick={sendMessage}><i class="fa fa-arrow-right"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
     )
