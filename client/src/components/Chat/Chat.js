@@ -5,29 +5,28 @@ const Chat = ({ socket, userName, room }) => {
     const [typedMessage, setTypedMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
 
-    const sendMessage = async ()=>{
-        if(typedMessage)
-        {
+    const sendMessage = async () => {
+        if (typedMessage) {
             const messageData = {
                 room,
                 author: userName,
                 message: typedMessage,
-                time: new Date(Date.now()).getHours() + ":" 
-                + new Date(Date.now()).getMinutes()
+                time: new Date(Date.now()).getHours() + ":"
+                    + new Date(Date.now()).getMinutes()
             }
 
             await socket.emit("send_message", messageData);
-            setMessageList((list)=> [...list, messageData]);
+            setMessageList((list) => [...list, messageData]);
             setTypedMessage("")
         }
     }
 
-    useEffect(()=>{
-        socket.on("receive_message", (data)=>{
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
             // console.log(data);
-            setMessageList((list)=> [...list, data]);
+            setMessageList((list) => [...list, data]);
         });
-    },[socket]);
+    }, [socket]);
 
     return (
         <div>
@@ -36,15 +35,15 @@ const Chat = ({ socket, userName, room }) => {
             </div>
             <div className='chat-body'>
                 {
-                    messageList.map((messageData, index)=> <h1 key={index}>{messageData.message}</h1>)
+                    messageList.map((messageData, index) => <h1 key={index}>{messageData.message}</h1>)
                 }
             </div>
             <div className='chat-footer'>
-                <input 
-                value={typedMessage}
-                type="text" 
-                placeholder="Hey....." 
-                onChange={(event)=> setTypedMessage(event.target.value)}
+                <input
+                    value={typedMessage}
+                    type="text"
+                    placeholder="Hey....."
+                    onChange={(event) => setTypedMessage(event.target.value)}
                 />
                 <button onClick={sendMessage}>&#9658;</button>
             </div>

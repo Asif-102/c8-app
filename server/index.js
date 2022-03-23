@@ -32,5 +32,5 @@ io.on("connection", (socket)=>{
 })
 
 server.listen(5000, ()=>{
-    console.log('SERVER RUNNING');
+    console.log('SERVER RUNNING PORT: 5000');
 });
